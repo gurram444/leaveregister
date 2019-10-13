@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="page-header">
+  <div class="topnav">
+    <div class="topnav-right">
+      <a href="{% url 'change_password' %}">Change Password</a>
+      <a href="{% url 'logout' %}">Log out ({{ user }})</a>
+    </div>
+  </div>
+ <h3> Hi {{ user.username }}!</h3>
+</div>
+
+  {% if request.user.is_superuser %}
+  	<p><a href="{% url 'add_user' %}">Add User</a></p>
+    <p><a href="{% url 'edit_user' %}">Edit User</a></p>
+    <p><a href='{% url "map_user" %}'>Map Manager</a></p>
+
+   {% else %}
+    <p><a href="{% url 'leave_request' %}">Request Leave</a></p>
+    <p><a href="{% url 'history' %}">Leave History</a></p>
+    {% endif %}
+{% else %}
+<div class="page-header">
+<div class="topnav">
+    <div class="topnav-right">
+      <a href="{% url 'login' %}">Log in</a>
+    </div>
+</div>
+</div>
+  <p><h4>Logged out successfully</h4></p>
+{% endif %}
+{% endblock %} }
